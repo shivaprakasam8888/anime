@@ -27,12 +27,12 @@ app.use('/api/auth', authRoutes);
 
 // Serve Static Frontend Assets in Production
 if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+  // Set static folder (frontend/dist is sibling to backend/ folder)
+  app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 
   // Any other route should serve the index.html file
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '..', 'frontend', 'dist', 'index.html'));
   });
 } else {
   app.get('/', (req, res) => {
