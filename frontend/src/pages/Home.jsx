@@ -4,6 +4,8 @@ import AnimeCard from '../components/AnimeCard';
 
 const genres = ['All', 'Action', 'Adventure', 'Fantasy', 'Drama', 'Mystery', 'Family', 'Supernatural'];
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 const Home = ({ onAnimeSelect, refreshTrigger }) => {
   const [animes, setAnimes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +21,7 @@ const Home = ({ onAnimeSelect, refreshTrigger }) => {
       if (search) query.append('search', search);
       if (selectedGenre && selectedGenre !== 'All') query.append('genre', selectedGenre);
 
-      const response = await fetch(`/api/anime?${query.toString()}`);
+      const response = await fetch(`${API_BASE}/api/anime?${query.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to fetch anime database');
       }

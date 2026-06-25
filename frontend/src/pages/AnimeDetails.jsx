@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Star, Clock, Calendar, CheckCircle2, Trash2, Film, Loader2 } from 'lucide-react';
 import ReviewSection from '../components/ReviewSection';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 const AnimeDetails = ({ animeId, onBack, onAnimeDeleted }) => {
   const [anime, setAnime] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ const AnimeDetails = ({ animeId, onBack, onAnimeDeleted }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/anime/${animeId}`);
+      const response = await fetch(`${API_BASE}/api/anime/${animeId}`);
       if (!response.ok) {
         throw new Error('Anime not found in vault');
       }
@@ -36,7 +38,7 @@ const AnimeDetails = ({ animeId, onBack, onAnimeDeleted }) => {
 
     setIsDeleting(true);
     try {
-      const response = await fetch(`/api/anime/${animeId}`, {
+      const response = await fetch(`${API_BASE}/api/anime/${animeId}`, {
         method: 'DELETE'
       });
       if (!response.ok) {

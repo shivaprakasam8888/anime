@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { X, Save, AlertCircle } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 const AddAnimeModal = ({ isOpen, onClose, onAnimeAdded }) => {
   const [title, setTitle] = useState('');
   const [synopsis, setSynopsis] = useState('');
@@ -44,7 +46,7 @@ const AddAnimeModal = ({ isOpen, onClose, onAnimeAdded }) => {
     };
 
     try {
-      const response = await fetch('/api/anime', {
+      const response = await fetch(`${API_BASE}/api/anime`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

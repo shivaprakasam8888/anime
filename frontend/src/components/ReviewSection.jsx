@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Star, MessageSquare, Send } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 const ReviewSection = ({ animeId, reviews, onReviewAdded }) => {
   const [username, setUsername] = useState('');
   const [comment, setComment] = useState('');
@@ -19,7 +21,7 @@ const ReviewSection = ({ animeId, reviews, onReviewAdded }) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/anime/${animeId}/reviews`, {
+      const response = await fetch(`${API_BASE}/api/anime/${animeId}/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
