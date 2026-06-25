@@ -47,7 +47,17 @@ function App() {
         body: JSON.stringify({ username, password })
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      if (!responseText) {
+        throw new Error('Connection failed: Server returned an empty response. Make sure the backend server is running.');
+      }
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (jsonErr) {
+        throw new Error('Connection failed: Server returned an invalid response. Check if the backend is running and VITE_API_URL is correct.');
+      }
 
       if (!response.ok) {
         throw new Error(data.message || 'Authentication failed');
@@ -63,7 +73,9 @@ function App() {
         setSuccess('Login successful!');
       }
     } catch (err) {
-      setError(err.message);
+      setError(err.message === 'Failed to fetch'
+        ? 'Could not connect to the backend server. Please verify the backend server is running and VITE_API_URL is correct.'
+        : err.message);
     } finally {
       setIsLoading(false);
     }
