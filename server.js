@@ -4,7 +4,7 @@ const path = require('path');
 require('dotenv').config();
 
 const connectDB = require('./config/db');
-const animeRoutes = require('./routes/animeRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
-app.use('/api/anime', animeRoutes);
+app.use('/api/auth', authRoutes);
 
 // Serve Static Frontend Assets in Production
 if (process.env.NODE_ENV === 'production') {
